@@ -14,20 +14,48 @@
     <h1>Meu PWA Responsivo</h1>
     <p>Funcionando no PC e celular!</p>
   </header>
+  
   <main>
     <section class="card">
       <h2>Olha só esse layout</h2>
-      <p>Use Ctrl‑Shift‑M no Chrome DevTools para testar responsivo.</p>
+      <p>Use Ctrl‑Shift‑M no DevTools para testar responsivo.</p>
     </section>
+    
+    <!-- Botão de instalação -->
+    <button id="installBtn" hidden>📲 Instalar App</button>
+
+    <!-- Botão de teste offline -->
     <button onclick="alert('Funcionou offline?')">Teste offline</button>
   </main>
+
   <footer>&copy; 2025 Vinicius</footer>
 
   <script>
+    // Service Worker
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js')
         .then(() => console.log('SW registrado'));
     }
+
+    // Instalação do PWA
+    let deferredPrompt;
+    const installBtn = document.getElementById('installBtn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.hidden = false;
+    });
+
+    installBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`Usuário escolheu: ${outcome}`);
+        installBtn.hidden = true;
+        deferredPrompt = null;
+      }
+    });
   </script>
 </body>
 </html>
