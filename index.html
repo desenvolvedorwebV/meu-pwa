@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meu PWA Responsivo</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.png">
+  <meta name="theme-color" content="#2d89ef">
+</head>
+<body>
+  <header>
+    <h1>Meu PWA Responsivo</h1>
+    <p>Funcionando no PC e celular!</p>
+  </header>
+  <main>
+    <section class="card">
+      <h2>Olha só esse layout</h2>
+      <p>Use Ctrl‑Shift‑M no Chrome DevTools para testar responsivo.</p>
+    </section>
+    <button onclick="alert('Funcionou offline?')">Teste offline</button>
+  </main>
+  <footer>&copy; 2025 Vinicius</footer>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .then(() => console.log('SW registrado'));
+    }
+  </script>
+</body>
+</html>
